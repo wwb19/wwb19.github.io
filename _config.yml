@@ -5,7 +5,7 @@
 # Site
 title: WWB1984 
 subtitle: will be ok
-description: here go
+description: here we go
 keywords: blog,it
 author: Wu wb
 language: zh
@@ -20,8 +20,12 @@ permalink_defaults:
 
 # SNS settings
 # 一些社交平台地址，支持以下几种：
-weibo_username:     wordnot
-github_username:    wwb19 
+#weibo_username:     wordnot
+#github_username:    wwb19 
+social:
+  GitHub: https://github.com/wwb19
+  Weibo: https://weibo.com/kenkyzone
+
 
 # Build settings
 anchorjs: true                          # if you want to customize anchor. check out line:181 of `post.html`
@@ -32,12 +36,6 @@ sidebar-avatar: img/avatar.jpg      # use absolute URL, seeing it's used in both
 # 友情链接
 friends: [
     {
-        title: "10000H",
-        href: "https://www.10000h.top"
-    },{
-        title: "Xiaotao's Page",
-        href: "https://niexiaotao.com"
-    },{
         title: "It helps SEO",
         href: "#"
     }
@@ -119,7 +117,7 @@ pagination_dir: page
 # Extensions
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
-theme: aircloud 
+theme: next 
 
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
