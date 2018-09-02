@@ -108,25 +108,25 @@
 
 
 
-  <meta name="description" content="背景作为程序员一个，多年来的工作习惯，啥都是要讲需求背景，所以直接来干货。这次我们涉及的是支付系统中的一个功能服务，在一家大行中提供全行的交易限额控制服务。其中这个额度不单单只是一维的限制，还需要根据不同的场景和对接系统，提供多个不同纬度的额度限制。简单概括。但是实践起来又是另一回事。 过程划重点当收到需求，常习惯看一遍划重点。  数据量 并发量 复杂度 一致性 多维度  分析数据量存量客户数约5">
+  <meta name="description" content="背景作为程序员一个，多年来的工作习惯，啥都是要讲需求背景，所以直接来干货。这次我们涉及的是一个支付系统中的一个功能服务，在一家大行中提供全行的交易额度限制服务。其中额度不单单只是一维的限制，还需要根据不同的场景和对接系统，提供多个不同纬度的额度限制。简单概括。但是实践起来又是另一回事。 过程划重点当收到需求，常习惯看一遍划重点。  数据量 并发量 复杂度 一致性 多维度  分析数据量存量客户数约5">
 <meta name="keywords" content="技术,redis,教程">
 <meta property="og:type" content="article">
-<meta property="og:title" content="【实践】记Redis使用实践一：项目背景">
-<meta property="og:url" content="http://www.wwb1984.com/2018/06/18/practice-redis-s01/index.html">
+<meta property="og:title" content="【记Redis使用实践一】项目背景">
+<meta property="og:url" content="http://www.wwb1984.com/2018/06/18/redis-s01/index.html">
 <meta property="og:site_name" content="WWB1984">
-<meta property="og:description" content="背景作为程序员一个，多年来的工作习惯，啥都是要讲需求背景，所以直接来干货。这次我们涉及的是支付系统中的一个功能服务，在一家大行中提供全行的交易限额控制服务。其中这个额度不单单只是一维的限制，还需要根据不同的场景和对接系统，提供多个不同纬度的额度限制。简单概括。但是实践起来又是另一回事。 过程划重点当收到需求，常习惯看一遍划重点。  数据量 并发量 复杂度 一致性 多维度  分析数据量存量客户数约5">
+<meta property="og:description" content="背景作为程序员一个，多年来的工作习惯，啥都是要讲需求背景，所以直接来干货。这次我们涉及的是一个支付系统中的一个功能服务，在一家大行中提供全行的交易额度限制服务。其中额度不单单只是一维的限制，还需要根据不同的场景和对接系统，提供多个不同纬度的额度限制。简单概括。但是实践起来又是另一回事。 过程划重点当收到需求，常习惯看一遍划重点。  数据量 并发量 复杂度 一致性 多维度  分析数据量存量客户数约5">
 <meta property="og:locale" content="zh">
-<meta property="og:updated_time" content="2018-06-22T16:46:23.000Z">
+<meta property="og:updated_time" content="2018-06-18T23:19:36.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="【实践】记Redis使用实践一：项目背景">
-<meta name="twitter:description" content="背景作为程序员一个，多年来的工作习惯，啥都是要讲需求背景，所以直接来干货。这次我们涉及的是支付系统中的一个功能服务，在一家大行中提供全行的交易限额控制服务。其中这个额度不单单只是一维的限制，还需要根据不同的场景和对接系统，提供多个不同纬度的额度限制。简单概括。但是实践起来又是另一回事。 过程划重点当收到需求，常习惯看一遍划重点。  数据量 并发量 复杂度 一致性 多维度  分析数据量存量客户数约5">
+<meta name="twitter:title" content="【记Redis使用实践一】项目背景">
+<meta name="twitter:description" content="背景作为程序员一个，多年来的工作习惯，啥都是要讲需求背景，所以直接来干货。这次我们涉及的是一个支付系统中的一个功能服务，在一家大行中提供全行的交易额度限制服务。其中额度不单单只是一维的限制，还需要根据不同的场景和对接系统，提供多个不同纬度的额度限制。简单概括。但是实践起来又是另一回事。 过程划重点当收到需求，常习惯看一遍划重点。  数据量 并发量 复杂度 一致性 多维度  分析数据量存量客户数约5">
 
 
 
 
 
 
-  <link rel="canonical" href="http://www.wwb1984.com/2018/06/18/practice-redis-s01/"/>
+  <link rel="canonical" href="http://www.wwb1984.com/2018/06/18/redis-s01/"/>
 
 
 
@@ -136,7 +136,7 @@
   };
 </script>
 
-  <title>【实践】记Redis使用实践一：项目背景 | WWB1984</title>
+  <title>【记Redis使用实践一】项目背景 | WWB1984</title>
   
 
 
@@ -309,7 +309,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.wwb1984.com/2018/06/18/practice-redis-s01/">
+    <link itemprop="mainEntityOfPage" href="http://www.wwb1984.com/2018/06/18/redis-s01/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Wu wb">
@@ -326,7 +326,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">【实践】记Redis使用实践一：项目背景
+          <h1 class="post-title" itemprop="name headline">【记Redis使用实践一】项目背景
               
             
           </h1>
@@ -353,53 +353,16 @@
                 
               
 
-              <time title="Created: 2018-06-18 18:41:03" itemprop="dateCreated datePublished" datetime="2018-06-18T18:41:03+08:00">2018-06-18</time>
+              <time title="Created: 2018-06-18 18:41:03 / Modified: 23:19:36" itemprop="dateCreated datePublished" datetime="2018-06-18T18:41:03+00:00">2018-06-18</time>
             
 
             
               
 
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2018-06-23 00:46:23" itemprop="dateModified" datetime="2018-06-23T00:46:23+08:00">2018-06-23</time>
               
             
           </span>
 
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">In</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/技术/" itemprop="url" rel="index"><span itemprop="name">技术</span></a></span>
-
-                
-                
-                  , 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/技术/实践/" itemprop="url" rel="index"><span itemprop="name">实践</span></a></span>
-
-                
-                
-              
-            </span>
           
 
           
@@ -428,7 +391,7 @@
       
 
       
-        <h1 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h1><p>作为程序员一个，多年来的工作习惯，啥都是要讲需求背景，所以直接来干货。<br>这次我们涉及的是支付系统中的一个功能服务，在一家大行中提供全行的交易限额控制服务。<br>其中这个额度不单单只是一维的限制，还需要根据不同的场景和对接系统，提供多个不同纬度的额度限制。<br>简单概括。但是实践起来又是另一回事。</p>
+        <h1 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h1><p>作为程序员一个，多年来的工作习惯，啥都是要讲需求背景，所以直接来干货。<br>这次我们涉及的是一个支付系统中的一个功能服务，在一家大行中提供全行的交易额度限制服务。<br>其中额度不单单只是一维的限制，还需要根据不同的场景和对接系统，提供多个不同纬度的额度限制。<br>简单概括。但是实践起来又是另一回事。</p>
 <h1 id="过程"><a href="#过程" class="headerlink" title="过程"></a>过程</h1><h2 id="划重点"><a href="#划重点" class="headerlink" title="划重点"></a>划重点</h2><p>当收到需求，常习惯看一遍划重点。</p>
 <ul>
 <li>数据量</li>
@@ -448,14 +411,14 @@
 </thead>
 <tbody>
 <tr>
-<td>基数x2</td>
-<td>基数x42x6</td>
-<td>基数x110</td>
+<td>2</td>
+<td>42x6</td>
+<td>6x18x110</td>
 </tr>
 <tr>
 <td>1亿</td>
 <td>一百多亿</td>
-<td>几百亿</td>
+<td>上千亿</td>
 </tr>
 </tbody>
 </table>
@@ -494,12 +457,12 @@
   <!-- JS库 sweetalert 可修改路径 -->
   <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-  <p><span>本文标题:</span><a href="/2018/06/18/practice-redis-s01/">【实践】记Redis使用实践一：项目背景</a></p>
+  <p><span>本文标题:</span><a href="/2018/06/18/redis-s01/">【记Redis使用实践一】项目背景</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 Wu wb 的个人博客">Wu wb</a></p>
   <p><span>发布时间:</span>2018年06月18日 - 18:06</p>
-  <p><span>最后更新:</span>2018年06月23日 - 00:06</p>
-  <p><span>原始链接:</span><a href="/2018/06/18/practice-redis-s01/" title="【实践】记Redis使用实践一：项目背景">http://www.wwb1984.com/2018/06/18/practice-redis-s01/</a>
-    <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://www.wwb1984.com/2018/06/18/practice-redis-s01/"  aria-label="复制成功！"></i></span>
+  <p><span>最后更新:</span>2018年06月18日 - 23:06</p>
+  <p><span>原始链接:</span><a href="/2018/06/18/redis-s01/" title="【记Redis使用实践一】项目背景">http://www.wwb1984.com/2018/06/18/redis-s01/</a>
+    <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://www.wwb1984.com/2018/06/18/redis-s01/"  aria-label="复制成功！"></i></span>
   </p>
   <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
 </div>
@@ -547,8 +510,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/06/17/blog-myFirstFatherDay/" rel="next" title="【日志】我的第一个父亲节">
-                <i class="fa fa-chevron-left"></i> 【日志】我的第一个父亲节
+              <a href="/2018/06/17/2018-06-18-blog/" rel="next" title="我的第一个父亲节">
+                <i class="fa fa-chevron-left"></i> 我的第一个父亲节
               </a>
             
           </div>
@@ -557,8 +520,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/06/18/practice-redis-s00/" rel="prev" title="【实践】记Redis使用实践-介绍">
-                【实践】记Redis使用实践-介绍 <i class="fa fa-chevron-right"></i>
+              <a href="/2018/06/18/redis-s00/" rel="prev" title="【记Redis使用实践】分享">
+                【记Redis使用实践】分享 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -637,41 +600,12 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">7</span>
+                    <span class="site-state-item-count">4</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
               
 
-              
-                
-                
-                <div class="site-state-item site-state-categories">
-                  <a href="/categories/index.html">
-                    
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                    <span class="site-state-item-count">9</span>
-                    <span class="site-state-item-name">categories</span>
-                  </a>
-                </div>
               
 
               
@@ -691,13 +625,7 @@
                     
                       
                     
-                      
-                    
-                      
-                    
-                      
-                    
-                    <span class="site-state-item-count">8</span>
+                    <span class="site-state-item-count">5</span>
                     <span class="site-state-item-name">tags</span>
                   </a>
                 </div>

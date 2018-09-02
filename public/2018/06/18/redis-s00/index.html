@@ -108,24 +108,25 @@
 
 
 
-  <meta name="description" content="here we go">
-<meta name="keywords" content="blog,it">
-<meta property="og:type" content="website">
-<meta property="og:title" content="WWB1984">
-<meta property="og:url" content="http://www.wwb1984.com/tags/技术/index.html">
+  <meta name="description" content="大纲 一、项目背景 二、数据结构 三、Redis使用 四、Redis数据同步 五、特别场景说明 六、总结优化  感受  从今年的3月底，接收到一个蛮有挑战的任务，就是用redis解决目前项目的一个额度服务需求。  领导很简单地说了几句，用Redis就可以解决，当然我也觉得就一个内存的k-v数据库，应该也还好，就接收了这个任务。  接触发现，Redis涉及的面不少，不单单数据结构，还有深入需求后发现">
+<meta name="keywords" content="技术,redis,教程">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【记Redis使用实践】分享">
+<meta property="og:url" content="http://www.wwb1984.com/2018/06/18/redis-s00/index.html">
 <meta property="og:site_name" content="WWB1984">
-<meta property="og:description" content="here we go">
+<meta property="og:description" content="大纲 一、项目背景 二、数据结构 三、Redis使用 四、Redis数据同步 五、特别场景说明 六、总结优化  感受  从今年的3月底，接收到一个蛮有挑战的任务，就是用redis解决目前项目的一个额度服务需求。  领导很简单地说了几句，用Redis就可以解决，当然我也觉得就一个内存的k-v数据库，应该也还好，就接收了这个任务。  接触发现，Redis涉及的面不少，不单单数据结构，还有深入需求后发现">
 <meta property="og:locale" content="zh">
+<meta property="og:updated_time" content="2018-06-18T17:00:59.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="WWB1984">
-<meta name="twitter:description" content="here we go">
+<meta name="twitter:title" content="【记Redis使用实践】分享">
+<meta name="twitter:description" content="大纲 一、项目背景 二、数据结构 三、Redis使用 四、Redis数据同步 五、特别场景说明 六、总结优化  感受  从今年的3月底，接收到一个蛮有挑战的任务，就是用redis解决目前项目的一个额度服务需求。  领导很简单地说了几句，用Redis就可以解决，当然我也觉得就一个内存的k-v数据库，应该也还好，就接收了这个任务。  接触发现，Redis涉及的面不少，不单单数据结构，还有深入需求后发现">
 
 
 
 
 
 
-  <link rel="canonical" href="http://www.wwb1984.com/tags/技术/"/>
+  <link rel="canonical" href="http://www.wwb1984.com/2018/06/18/redis-s00/"/>
 
 
 
@@ -135,7 +136,7 @@
   };
 </script>
 
-  <title>Tag: 技术 | WWB1984</title>
+  <title>【记Redis使用实践】分享 | WWB1984</title>
   
 
 
@@ -182,7 +183,7 @@
     
   
 
-  <div class="container sidebar-position-left ">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -239,7 +240,7 @@
         
         
           
-          <li class="menu-item menu-item-tags menu-item-active">
+          <li class="menu-item menu-item-tags">
     <a href="/tags/" rel="section">
       <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />Tags</a>
   </li>
@@ -288,126 +289,228 @@
           
             
 
-    
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-    
-
-  
-
-
           
           <div id="content" class="content">
             
 
-  
-  
-  
-  <div class="post-block tag">
+  <div id="posts" class="posts-expand">
+    
 
-    <div id="posts" class="posts-collapse">
-      <div class="collection-title">
-        <h1>技术<small>Tag</small>
-        </h1>
-      </div>
+  
 
-      
-        
+  
+  
+  
+
+  
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.wwb1984.com/2018/06/18/redis-s00/">
 
-      <h2 class="post-title">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wu wb">
+      <meta itemprop="description" content="here we go">
+      <meta itemprop="image" content="/img/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="WWB1984">
+    </span>
+
+    
+      <header class="post-header">
+
         
-<<<<<<< HEAD
-            <a class="post-title-link" href="/2018/06/18/project-redis-s00/" itemprop="url">
-              
-                <span itemprop="name">【项目】记Redis使用实践-介绍</span>
-=======
-            <a class="post-title-link" href="/2018/06/18/redis-s00/" itemprop="url">
-              
-                <span itemprop="name">【记Redis使用实践】分享</span>
->>>>>>> parent of 0c8ccba... 20180805
-              
-            </a>
         
-      </h2>
+          <h1 class="post-title" itemprop="name headline">【记Redis使用实践】分享
+              
+            
+          </h1>
+        
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-<<<<<<< HEAD
-              datetime="2018-06-18T18:41:03+08:00"
-=======
-              datetime="2018-06-18T18:41:03+00:00"
->>>>>>> parent of 0c8ccba... 20180805
-              content="2018-06-18" >
-          06-18
-        </time>
-      </div>
+        <div class="post-meta">
+          
+        
+          <span class="post-time">
 
-    </header>
-  </article>
+            
+            
+            
 
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2018-06-18 18:41:03 / Modified: 17:00:59" itemprop="dateCreated datePublished" datetime="2018-06-18T18:41:03+00:00">2018-06-18</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-        
+      
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-<<<<<<< HEAD
-            <a class="post-title-link" href="/2018/06/18/project-redis-s01/" itemprop="url">
-=======
-            <a class="post-title-link" href="/2018/06/18/redis-s01/" itemprop="url">
->>>>>>> parent of 0c8ccba... 20180805
-              
-                <span itemprop="name">【记Redis使用实践一】项目背景</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-06-18T18:41:03+00:00"
-              content="2018-06-18" >
-          06-18
-        </time>
-      </div>
-
-    </header>
-  </article>
-
+      
+        <h1 id="大纲"><a href="#大纲" class="headerlink" title="大纲"></a>大纲</h1><ul>
+<li>一、项目背景</li>
+<li>二、数据结构</li>
+<li>三、Redis使用</li>
+<li>四、Redis数据同步</li>
+<li>五、特别场景说明</li>
+<li>六、总结优化</li>
+</ul>
+<h1 id="感受"><a href="#感受" class="headerlink" title="感受"></a>感受</h1><p>  从今年的3月底，接收到一个蛮有挑战的任务，就是用redis解决目前项目的一个额度服务需求。<br>  领导很简单地说了几句，用Redis就可以解决，当然我也觉得就一个内存的k-v数据库，应该也还好，就接收了这个任务。<br>  接触发现，Redis涉及的面不少，不单单数据结构，还有深入需求后发现，其实数据结构也是一个很大的挑战，因为单单同步表数据，量有点大。走序列化，跟已有的技术平台不太兼容，最后只能选择重新设计数据结构，进行映射。<br>  最后，经过几个月的学习研究。从一个没有接触过Redis的小白，总算折腾出了一个以Redis作为缓存的额度服务系统。希望能够分享出来。</p>
 
       
     </div>
 
+    
+
+    
+    
+    
+
+
+    
+    
+      <div>
+        
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+  
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <p><span>本文标题:</span><a href="/2018/06/18/redis-s00/">【记Redis使用实践】分享</a></p>
+  <p><span>文章作者:</span><a href="/" title="访问 Wu wb 的个人博客">Wu wb</a></p>
+  <p><span>发布时间:</span>2018年06月18日 - 18:06</p>
+  <p><span>最后更新:</span>2018年06月18日 - 17:06</p>
+  <p><span>原始链接:</span><a href="/2018/06/18/redis-s00/" title="【记Redis使用实践】分享">http://www.wwb1984.com/2018/06/18/redis-s00/</a>
+    <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://www.wwb1984.com/2018/06/18/redis-s00/"  aria-label="复制成功！"></i></span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
+</div>
+<script> 
+    var clipboard = new Clipboard('.fa-clipboard');
+    $(".fa-clipboard").click(function(){
+      clipboard.on('success', function(){
+        swal({   
+          title: "",   
+          text: '复制成功',
+          icon: "success", 
+          showConfirmButton: true
+          });
+	});
+    });  
+</script>
+
+      </div>
+    
+    
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/技术/" rel="tag"># 技术</a>
+          
+            <a href="/tags/redis/" rel="tag"># redis</a>
+          
+            <a href="/tags/教程/" rel="tag"># 教程</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/06/18/redis-s01/" rel="next" title="【记Redis使用实践一】项目背景">
+                <i class="fa fa-chevron-left"></i> 【记Redis使用实践一】项目背景
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
           
+
+  
+
+
 
         </div>
         
@@ -428,8 +531,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -448,57 +560,19 @@
                 
                   <a href="/archives/">
                 
-<<<<<<< HEAD
-                    <span class="site-state-item-count">2</span>
-=======
                     <span class="site-state-item-count">4</span>
->>>>>>> parent of 0c8ccba... 20180805
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
               
 
               
-<<<<<<< HEAD
-                
-                
-                <div class="site-state-item site-state-categories">
-                  
-                    
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                    <span class="site-state-item-count">2</span>
-                    <span class="site-state-item-name">categories</span>
-                  
-                </div>
-              
-=======
->>>>>>> parent of 0c8ccba... 20180805
 
               
                 
                 
                 <div class="site-state-item site-state-tags">
-                  
+                  <a href="/tags/index.html">
                     
                     
                       
@@ -511,19 +585,9 @@
                     
                       
                     
-<<<<<<< HEAD
-                      
-                    
-                      
-                    
-                      
-                    
-                    <span class="site-state-item-count">3</span>
-=======
                     <span class="site-state-item-count">5</span>
->>>>>>> parent of 0c8ccba... 20180805
                     <span class="site-state-item-name">tags</span>
-                  
+                  </a>
                 </div>
               
             </nav>
@@ -561,6 +625,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#大纲"><span class="nav-number">1.</span> <span class="nav-text">大纲</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#感受"><span class="nav-number">2.</span> <span class="nav-text">感受</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -703,6 +783,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.3.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.3.0"></script>
+
+
 
   
 
