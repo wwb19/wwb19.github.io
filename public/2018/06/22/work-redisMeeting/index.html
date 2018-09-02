@@ -1,0 +1,1032 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.3.0" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.3.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.3.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.3.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '6.3.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="大纲 Redis介绍 Redis使用 Redis场景 Redis实践  一、Redis介绍 概述Remote DIctionary Server(Redis) 是一个由Salvatore Sanfilippo写的key-value存储系统。 Redis是一个开源的使用ANSI C语言编写、遵守BSD协议、支持网络、可基于内存亦可持久化的日志型、Key-Value数据库，并提供多种语言的API。 它">
+<meta name="keywords" content="技术,redis,培训,会议">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【培训】公司Redis分享会">
+<meta property="og:url" content="http://www.wwb1984.com/2018/06/22/work-redisMeeting/index.html">
+<meta property="og:site_name" content="WWB1984">
+<meta property="og:description" content="大纲 Redis介绍 Redis使用 Redis场景 Redis实践  一、Redis介绍 概述Remote DIctionary Server(Redis) 是一个由Salvatore Sanfilippo写的key-value存储系统。 Redis是一个开源的使用ANSI C语言编写、遵守BSD协议、支持网络、可基于内存亦可持久化的日志型、Key-Value数据库，并提供多种语言的API。 它">
+<meta property="og:locale" content="zh">
+<meta property="og:image" content="http://oxigzlivh.bkt.clouddn.com/2018-06-23-15297206515518.jpg">
+<meta property="og:image" content="http://oxigzlivh.bkt.clouddn.com/2018-06-23-15297206846504.jpg">
+<meta property="og:image" content="http://oxigzlivh.bkt.clouddn.com/2018-06-23-15297207006886.jpg">
+<meta property="og:image" content="http://oxigzlivh.bkt.clouddn.com/2018-06-23-15297207149684.jpg">
+<meta property="og:image" content="http://oxigzlivh.bkt.clouddn.com/2018-06-23-15297224494777.jpg">
+<meta property="og:updated_time" content="2018-06-23T03:09:46.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="【培训】公司Redis分享会">
+<meta name="twitter:description" content="大纲 Redis介绍 Redis使用 Redis场景 Redis实践  一、Redis介绍 概述Remote DIctionary Server(Redis) 是一个由Salvatore Sanfilippo写的key-value存储系统。 Redis是一个开源的使用ANSI C语言编写、遵守BSD协议、支持网络、可基于内存亦可持久化的日志型、Key-Value数据库，并提供多种语言的API。 它">
+<meta name="twitter:image" content="http://oxigzlivh.bkt.clouddn.com/2018-06-23-15297206515518.jpg">
+
+
+
+
+
+
+  <link rel="canonical" href="http://www.wwb1984.com/2018/06/22/work-redisMeeting/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>【培训】公司Redis分享会 | WWB1984</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">WWB1984</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">will be ok</p>
+      
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />Home</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+    <a href="/about/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-user"></i> <br />About</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+    <a href="/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />Tags</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />Categories</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />Archives</a>
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.wwb1984.com/2018/06/22/work-redisMeeting/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wu wb">
+      <meta itemprop="description" content="here we go">
+      <meta itemprop="image" content="/img/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="WWB1984">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">【培训】公司Redis分享会
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          
+        
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2018-06-22 17:19:03" itemprop="dateCreated datePublished" datetime="2018-06-22T17:19:03+08:00">2018-06-22</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2018-06-23 11:09:46" itemprop="dateModified" datetime="2018-06-23T11:09:46+08:00">2018-06-23</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/工作/" itemprop="url" rel="index"><span itemprop="name">工作</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/工作/培训/" itemprop="url" rel="index"><span itemprop="name">培训</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="大纲"><a href="#大纲" class="headerlink" title="大纲"></a>大纲</h1><ul>
+<li><a href="#overview">Redis介绍</a></li>
+<li><a href="#useage">Redis使用</a></li>
+<li><a href="#stage">Redis场景</a></li>
+<li><a href="#practice">Redis实践</a></li>
+</ul>
+<h1 id="一、Redis介绍"><a href="#一、Redis介绍" class="headerlink" title="一、Redis介绍"></a>一、Redis介绍</h1><p><a id="overview"></a></p>
+<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>Remote DIctionary Server(Redis) 是一个由Salvatore Sanfilippo写的key-value存储系统。</p>
+<p>Redis是一个开源的使用ANSI C语言编写、遵守BSD协议、支持网络、可基于内存亦可持久化的日志型、Key-Value数据库，并提供多种语言的API。</p>
+<p>它通常被称为数据结构服务器，因为值（value）可以是 字符串(String), 哈希(Map), 列表(list), 集合(sets) 和 有序集合(sorted sets)等类型。</p>
+<h2 id="特性"><a href="#特性" class="headerlink" title="特性"></a>特性</h2><ul>
+<li><p>Redis支持数据的持久化，可以将内存中的数据保存在磁盘中，重启的时候可以再次加载进行使用。</p>
+</li>
+<li><p>Redis不仅仅支持简单的key-value类型的数据，同时还提供list，set，zset，hash等数据结构的存储。</p>
+</li>
+<li><p>Redis支持数据的备份，即master-slave模式的数据备份。</p>
+</li>
+</ul>
+<h2 id="数据结构"><a href="#数据结构" class="headerlink" title="数据结构"></a>数据结构</h2><h3 id="Redis支持五种数据类型："><a href="#Redis支持五种数据类型：" class="headerlink" title="Redis支持五种数据类型："></a>Redis支持五种数据类型：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">//type的占5种类型：</span><br><span class="line">/* Object types */</span><br><span class="line">#define OBJ_STRING 0    //字符串对象</span><br><span class="line">#define OBJ_LIST 1      //列表对象</span><br><span class="line">#define OBJ_SET 2       //集合对象</span><br><span class="line">#define OBJ_ZSET 3      //有序集合对象</span><br><span class="line">#define OBJ_HASH 4      //哈希对象</span><br></pre></td></tr></table></figure>
+<h3 id="Redis底层的十种基础数据结构（3-2）"><a href="#Redis底层的十种基础数据结构（3-2）" class="headerlink" title="Redis底层的十种基础数据结构（3.2）"></a>Redis底层的十种基础数据结构（3.2）</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">// encoding 的10种类型</span><br><span class="line">#define OBJ_ENCODING_RAW 0          //原始表示方式，字符串对象是简单动态字符串</span><br><span class="line">#define OBJ_ENCODING_INT 1          //long类型的整数</span><br><span class="line">#define OBJ_ENCODING_HT 2           //字典</span><br><span class="line">#define OBJ_ENCODING_ZIPMAP 3       //不在使用</span><br><span class="line">#define OBJ_ENCODING_LINKEDLIST 4   //双端链表,不在使用</span><br><span class="line">#define OBJ_ENCODING_ZIPLIST 5      //压缩列表</span><br><span class="line">#define OBJ_ENCODING_INTSET 6       //整数集合</span><br><span class="line">#define OBJ_ENCODING_SKIPLIST 7     //跳跃表和字典</span><br><span class="line">#define OBJ_ENCODING_EMBSTR 8       //embstr编码的简单动态字符串</span><br><span class="line">#define OBJ_ENCODING_QUICKLIST 9    //由压缩列表组成的双向列表--&gt;快速列表</span><br></pre></td></tr></table></figure>
+<h3 id="相互关系"><a href="#相互关系" class="headerlink" title="相互关系"></a>相互关系</h3><table>
+<thead>
+<tr>
+<th>数据类型</th>
+<th>基础数据结构</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>String</td>
+<td>INT,EMBSTR,RAW</td>
+</tr>
+<tr>
+<td>LIST</td>
+<td>ZIPLIST,QUICKLIST</td>
+</tr>
+<tr>
+<td>HASH</td>
+<td>ZIPLIST,HT(HASHTABLE)</td>
+</tr>
+<tr>
+<td>SET</td>
+<td>INTSET,HT</td>
+</tr>
+<tr>
+<td>ZSET</td>
+<td>ZIPLIST,SKIPLIST</td>
+</tr>
+</tbody>
+</table>
+<h2 id="优势"><a href="#优势" class="headerlink" title="优势"></a>优势</h2><ul>
+<li><p>性能极高 – Redis能读的速度是110000次/s,写的速度是81000次/s 。</p>
+</li>
+<li><p>丰富的数据类型 – Redis支持二进制案例的 Strings, Lists, Hashes, Sets 及 Ordered Sets 数据类型操作。</p>
+</li>
+<li><p>原子 – Redis的所有操作都是原子性的，意思就是要么成功执行要么失败完全不执行。单个操作是原子性的。多个操作也支持事务，即原子性，通过MULTI和EXEC指令包起来。</p>
+</li>
+<li><p>丰富的特性 – Redis还支持 publish/subscribe, 通知, key 过期等等特性。</p>
+</li>
+</ul>
+<h1 id="二、Redis使用"><a href="#二、Redis使用" class="headerlink" title="二、Redis使用"></a>二、Redis使用</h1><p><a id="useage"></a></p>
+<h2 id="安装方式"><a href="#安装方式" class="headerlink" title="安装方式"></a>安装方式</h2><p>请参考另一篇文章<a href="/2018/06/18/course-redisInstall/" title="[Redis 3.2 详细安装步骤说明]">[Redis 3.2 详细安装步骤说明]</a></p>
+<h2 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h2><p><a href="https://www.cnblogs.com/kevinws/p/6281395.html" target="_blank" rel="noopener">常用命令介绍</a></p>
+<h2 id="持久化介绍"><a href="#持久化介绍" class="headerlink" title="持久化介绍"></a>持久化介绍</h2><p>Redis 分别提供了 RDB 和 AOF 两种持久化机制： </p>
+<ul>
+<li>RDB<br>将数据库的快照（snapshot）以二进制的方式保存到磁盘中。</li>
+<li>AOF<br>则以协议文本的方式，将所有对数据库进行过写入的命令（及其参数）记录到 AOF 文件，以此达到记录数据库状态的目的。</li>
+</ul>
+<h2 id="高可用"><a href="#高可用" class="headerlink" title="高可用"></a>高可用</h2><h3 id="主从同步"><a href="#主从同步" class="headerlink" title="主从同步"></a>主从同步</h3><h3 id="哨兵模式"><a href="#哨兵模式" class="headerlink" title="哨兵模式"></a>哨兵模式</h3><p>Sentinel（哨兵）是Redis 的高可用性解决方案：由一个或多个Sentinel 实例 组成的Sentinel 系统可以监视任意多个主服务器，以及这些主服务器属下的所有从服务器，并在被监视的主服务器进入下线状态时，自动将下线主服务器属下的某个从服务器升级为新的主服务器。<br>参考部署架构图</p>
+<ul>
+<li><p>正常状态下：（A-主，B、C为从）<br><img src="http://oxigzlivh.bkt.clouddn.com/2018-06-23-15297206515518.jpg" alt=""></p>
+</li>
+<li><p>Master掉线后：<br><img src="http://oxigzlivh.bkt.clouddn.com/2018-06-23-15297206846504.jpg" alt=""></p>
+</li>
+<li><p>选举升级Slave为Master：<br><img src="http://oxigzlivh.bkt.clouddn.com/2018-06-23-15297207006886.jpg" alt=""></p>
+</li>
+<li><p>恢复正常后：<br><img src="http://oxigzlivh.bkt.clouddn.com/2018-06-23-15297207149684.jpg" alt=""></p>
+</li>
+</ul>
+<h1 id="三、Redis场景"><a href="#三、Redis场景" class="headerlink" title="三、Redis场景"></a>三、Redis场景</h1><p><a id="stage"></a></p>
+<h2 id="表数据缓存"><a href="#表数据缓存" class="headerlink" title="表数据缓存"></a>表数据缓存</h2><p>使用方式：直接把表数据加载至Redis中，数据类型为Hash，常用的数据库缓存的用法之一。</p>
+<ul>
+<li>一般用法：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">如：</span><br><span class="line"> **表名：**TableName</span><br><span class="line"> **字段：**A,B,C,D</span><br><span class="line"> 转换为Redis的存为：(结构为hash)</span><br><span class="line"> **Key：**T_TableName_唯一索引</span><br><span class="line"> **Field：**</span><br><span class="line"> &#123;a:val1,b:val2,c:val3,d:val4&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>说明：<br>此类一般保持少量并且常用的字段加载到内存中进行缓存使用，因此需要保证Field的数据量条数不多并且val字段长度不大，尽量使用Ziplist以便节省内存空间。</p>
+<h2 id="NoSQL数据库"><a href="#NoSQL数据库" class="headerlink" title="NoSQL数据库"></a>NoSQL数据库</h2><p>使用方式：直接以Redis作为数据库存储，可以同表数据缓存方式进行存放，或重新定义所需的数据结构。</p>
+</li>
+<li><p>一般用法：</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">如：对象User</span><br><span class="line"></span><br><span class="line">Key为：User:uid</span><br><span class="line">Field：对应属性字段</span><br><span class="line">或</span><br><span class="line">Key为：User</span><br><span class="line">Field:uid.属性字段</span><br></pre></td></tr></table></figure>
+<ul>
+<li>说明：<br>需要进行数据量的评估和考虑数据结构对于内存的使用。<br>因为在Redis中，若所有数据均以Key-Vale的方式存放，每个key除了自身数据外，还需保留RedisObeject本身的数据空间，因此占用较大，可考虑转为Hash-Field的方式进行数据存放。<br>但Hash使用两种数据结构，一个是ZipList一个是HashTable，若使用HashTable方式存放，则内存空间无法节省，因此需结合具体情况定义不同的数据结构使用方式。</li>
+</ul>
+<h2 id="消息队列（生产者消费模式）"><a href="#消息队列（生产者消费模式）" class="headerlink" title="消息队列（生产者消费模式）"></a>消息队列（生产者消费模式）</h2><p>Redis不仅可作为缓存服务器，还可用作消息队列。它的列表类型天生支持用作消息队列。<br>Redis提供了两种方式来作消息队列。<br>一个是使用生产者消费模式，另一个就是发布订阅者模式。<br>前者会让一个或者多个客户端监听消息队列，一旦消息到达，消费者马上消费，谁先抢到算谁的，如果队列里没有消息，则消费者继续监听。<br>后者也是一个或多个客户端订阅消息频道，只要发布者发布消息，所有订阅者都能收到消息，订阅者都是平等的。<br>如下图所示：</p>
+<p><img src="http://oxigzlivh.bkt.clouddn.com/2018-06-23-15297224494777.jpg" alt=""></p>
+<p>由于Redis的列表是使用双向链表实现的，保存了头尾节点，所以在列表头尾两边插取元素都是非常快的。所以可以直接使用Redis的List实现消息队列，只需简单的两个指令lpush和rpop或者rpush和lpop。</p>
+<h2 id="流水号判重"><a href="#流水号判重" class="headerlink" title="流水号判重"></a>流水号判重</h2><p>Redis 的 Set 是 String 类型的无序集合。集合成员是唯一的，这就意味着集合中不能出现重复的数据。<br>Redis 中集合是通过哈希表实现的，所以添加，删除，查找的复杂度都是 O(1)。<br>集合中最大的成员数为 232 - 1 (4294967295, 每个集合可存储40多亿个成员)。<br>我们可以使用Set进行<strong>流水号判重操作</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">如：</span><br><span class="line">Key:serno_YYYYMMDD</span><br><span class="line">Set:[serno1,serno2 ... sernoN]</span><br><span class="line"></span><br><span class="line">Command：</span><br><span class="line">SADD serno_YYYYMMDD sernoX </span><br><span class="line">加入Set中，若已存在则返回0，若加入成功则返回1</span><br></pre></td></tr></table></figure>
+<h1 id="四、Redis实践"><a href="#四、Redis实践" class="headerlink" title="四、Redis实践"></a>四、Redis实践</h1><p><a id="practice"></a></p>
+<h2 id="支付系统-额度服务"><a href="#支付系统-额度服务" class="headerlink" title="支付系统-额度服务"></a>支付系统-额度服务</h2><p>请参考另一篇文章<a href="/2018/06/18/practice-redis-s00/" title="[【实践】记Redis使用实践 ]">[【实践】记Redis使用实践 ]</a></p>
+<h2 id="Redis数据迁移"><a href="#Redis数据迁移" class="headerlink" title="Redis数据迁移"></a>Redis数据迁移</h2><p>方案进行中，后续分享。</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+
+    
+    
+      <div>
+        
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+  
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <p><span>本文标题:</span><a href="/2018/06/22/work-redisMeeting/">【培训】公司Redis分享会</a></p>
+  <p><span>文章作者:</span><a href="/" title="访问 Wu wb 的个人博客">Wu wb</a></p>
+  <p><span>发布时间:</span>2018年06月22日 - 17:06</p>
+  <p><span>最后更新:</span>2018年06月23日 - 11:06</p>
+  <p><span>原始链接:</span><a href="/2018/06/22/work-redisMeeting/" title="【培训】公司Redis分享会">http://www.wwb1984.com/2018/06/22/work-redisMeeting/</a>
+    <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://www.wwb1984.com/2018/06/22/work-redisMeeting/"  aria-label="复制成功！"></i></span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
+</div>
+<script> 
+    var clipboard = new Clipboard('.fa-clipboard');
+    $(".fa-clipboard").click(function(){
+      clipboard.on('success', function(){
+        swal({   
+          title: "",   
+          text: '复制成功',
+          icon: "success", 
+          showConfirmButton: true
+          });
+	});
+    });  
+</script>
+
+      </div>
+    
+    
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/技术/" rel="tag"># 技术</a>
+          
+            <a href="/tags/redis/" rel="tag"># redis</a>
+          
+            <a href="/tags/培训/" rel="tag"># 培训</a>
+          
+            <a href="/tags/会议/" rel="tag"># 会议</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/06/18/course-redisInstall/" rel="next" title="【教程】Redis 3.2 详细安装步骤说明">
+                <i class="fa fa-chevron-left"></i> 【教程】Redis 3.2 详细安装步骤说明
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/07/22/share-redis-summary20180722/" rel="prev" title="【分享】限额控制的Redis实践">
+                【分享】限额控制的Redis实践 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/img/avatar.jpg"
+                alt="Wu wb" />
+            
+              <p class="site-author-name" itemprop="name">Wu wb</p>
+              <p class="site-description motion-element" itemprop="description">here we go</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">7</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">9</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">8</span>
+                    <span class="site-state-item-name">tags</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/wwb19" target="_blank" title="GitHub"><i class="fa fa-fw fa-globe"></i>GitHub</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://weibo.com/kenkyzone" target="_blank" title="Weibo"><i class="fa fa-fw fa-globe"></i>Weibo</a>
+                  
+                </span>
+              
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#大纲"><span class="nav-number">1.</span> <span class="nav-text">大纲</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#一、Redis介绍"><span class="nav-number">2.</span> <span class="nav-text">一、Redis介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#概述"><span class="nav-number">2.1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#特性"><span class="nav-number">2.2.</span> <span class="nav-text">特性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据结构"><span class="nav-number">2.3.</span> <span class="nav-text">数据结构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Redis支持五种数据类型："><span class="nav-number">2.3.1.</span> <span class="nav-text">Redis支持五种数据类型：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Redis底层的十种基础数据结构（3-2）"><span class="nav-number">2.3.2.</span> <span class="nav-text">Redis底层的十种基础数据结构（3.2）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#相互关系"><span class="nav-number">2.3.3.</span> <span class="nav-text">相互关系</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#优势"><span class="nav-number">2.4.</span> <span class="nav-text">优势</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#二、Redis使用"><span class="nav-number">3.</span> <span class="nav-text">二、Redis使用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#安装方式"><span class="nav-number">3.1.</span> <span class="nav-text">安装方式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#常用命令"><span class="nav-number">3.2.</span> <span class="nav-text">常用命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#持久化介绍"><span class="nav-number">3.3.</span> <span class="nav-text">持久化介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#高可用"><span class="nav-number">3.4.</span> <span class="nav-text">高可用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#主从同步"><span class="nav-number">3.4.1.</span> <span class="nav-text">主从同步</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#哨兵模式"><span class="nav-number">3.4.2.</span> <span class="nav-text">哨兵模式</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#三、Redis场景"><span class="nav-number">4.</span> <span class="nav-text">三、Redis场景</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#表数据缓存"><span class="nav-number">4.1.</span> <span class="nav-text">表数据缓存</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NoSQL数据库"><span class="nav-number">4.2.</span> <span class="nav-text">NoSQL数据库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#消息队列（生产者消费模式）"><span class="nav-number">4.3.</span> <span class="nav-text">消息队列（生产者消费模式）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#流水号判重"><span class="nav-number">4.4.</span> <span class="nav-text">流水号判重</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#四、Redis实践"><span class="nav-number">5.</span> <span class="nav-text">四、Redis实践</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#支付系统-额度服务"><span class="nav-number">5.1.</span> <span class="nav-text">支付系统-额度服务</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Redis数据迁移"><span class="nav-number">5.2.</span> <span class="nav-text">Redis数据迁移</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Wu wb</span>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+  <div class="powered-by">
+    <i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+      本站访客数:<span id="busuanzi_value_site_uv"></span>
+    </span>
+  </div>
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> v3.7.1</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/theme-next/hexo-theme-next">NexT.Pisces</a> v6.3.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.3.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.3.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.3.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.3.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.3.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.3.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.3.0"></script>
+
+
+
+  
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
