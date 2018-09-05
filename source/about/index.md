@@ -1,6 +1,4 @@
 ---
-layout: "about"
-title: "About"
-date: 2016-04-21 04:48:33
-comments: true
+title: about
+date: 2018-09-06 01:11:08
 ---

@@ -17,7 +17,7 @@ copyright: true
 * [Redis使用](#useage)
 * [Redis场景](#stage)
 * [Redis实践](#practice)
-
+<!-- more --> 
 # 一、Redis介绍
 <a id="overview"></a>
 ## 概述
