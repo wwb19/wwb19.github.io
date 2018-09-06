@@ -1,5 +1,5 @@
 ---
-title:  【培训】Redis日常运维
+title:  【分享】Redis日常运维
 date: 2018-09-06 20:24
 tags: 
     - 培训 
@@ -9,7 +9,7 @@ tags:
     - 运维
 categories:
     - 工作
-    - 培训
+    - 分享
 copyright: true
 ---
 
