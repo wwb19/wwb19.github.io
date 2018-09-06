@@ -1,5 +1,3 @@
-work-redis-maintenance
-
 ---
 title:  【培训】Redis日常运维
 date: 2018-09-06 20:24
