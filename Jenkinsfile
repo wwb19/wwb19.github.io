@@ -39,7 +39,6 @@ pipeline {
     	          sh 'ls -lrt'
     	          sh 'rm -rf .deploy_git'
     	          sh 'hexo generate'
-    	          sh 'hexo deploy'
     			  }
     			}
 		    }
