@@ -5,9 +5,7 @@ pipeline {
     }
   }
  options{
-        disableConcurrentBuilds()
         skipDefaultCheckout true
-        timestamps()
     }
   environment { 
     def HTTP_PROXY="http://192.168.2.123:4411"
@@ -20,7 +18,6 @@ pipeline {
   stages {
   stage('Init') {
 		steps{
-			scmSkip(deleteBuild: true, skipPattern:'.*\\[ci skip\\].*')
 			script{
 				println "welcome to Nick learn"
 				sh 'printenv'
