@@ -8,7 +8,7 @@ pipeline {
       githubPush()
  }*/
  options{
-         disableConcurrentBuilds()
+         /*disableConcurrentBuilds()*/
          skipDefaultCheckout()
          timestamps()
     }
