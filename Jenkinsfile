@@ -4,6 +4,9 @@ pipeline {
       label 'Jenkins_slave_practice'
     }
   }
+ triggers {
+      githubPush()
+ }
  options{
          /*disableConcurrentBuilds()*/
          /*skipDefaultCheckout true*/
