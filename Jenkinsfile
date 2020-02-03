@@ -5,7 +5,7 @@ pipeline {
     }
   }
  options{
-         disableConcurrentBuilds()
+         /*disableConcurrentBuilds()*/
          skipDefaultCheckout true
          timestamps()
     }
