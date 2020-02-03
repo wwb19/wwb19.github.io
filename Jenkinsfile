@@ -30,7 +30,6 @@ pipeline {
     }
     
     stage('hexo2') {
-        git  credentialsId: '3c210def-c000-4e2a-9b2d-838986a6b172', url: 'https://github.com/wwb19/wwb19.github.io.git'
 		steps{
 			script{
     			container('hexo') {
