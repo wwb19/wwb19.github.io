@@ -4,6 +4,11 @@ pipeline {
       label 'Jenkins_slave_practice'
     }
   }
+ options{
+        disableConcurrentBuilds()
+        skipDefaultCheckout true
+        timestamps()
+    }
   environment { 
     def HTTP_PROXY="http://192.168.2.123:4411"
     def HTTPS_PROXY="http://192.168.2.123:4411"
