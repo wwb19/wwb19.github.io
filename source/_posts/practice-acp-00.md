@@ -1,3 +1,5 @@
+practice-acp-s00
+
 ---
 title:  【培训】敏捷培训
 date: 2020-02-03 18:41:03
@@ -21,5 +23,9 @@ copyright: true
 
 流水线工作
 知识型工作
-![641580721362_.pi](https://raw.githubusercontent.com/wwb19/picrepos/master/20200203172741.jpg)
+![641580721362_.pi](https://raw.githubusercontent.com/wwb19/picrepos/master/20200203182110.jpg)
+
+
+![](https://raw.githubusercontent.com/wwb19/picrepos/master/20200203182122.jpg)
+
 
