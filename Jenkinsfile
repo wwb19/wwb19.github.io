@@ -22,8 +22,10 @@ pipeline {
   }
   stages {
   stage('Init') {
+	  options {
+                skipDefaultCheckout()
+            }
 		steps{
-			scmSkip(deleteBuild: true, skipPattern:'.*\\[ci skip\\].*')
 			script{
 				println "welcome to Nick learn"
 				sh 'printenv'
