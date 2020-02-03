@@ -7,12 +7,15 @@ pipeline {
   environment { 
     def http_proxy="http://192.168.2.123:4411"
     def https_proxy="http://192.168.2.123:4411"
+    GITHUB_TOKEN=credentials('98f28b74-a03f-432e-a2a9-18cf52150e4a')
+    
   }
   stages {
   stage('Init') {
 		steps{
 			script{
 				println "welcome to Nick learn"
+				sh 'printenv'
 			}
 		}
 	}
@@ -37,8 +40,10 @@ pipeline {
     	          sh 'pwd'
     	          sh 'ls -lrt'
     	          sh 'rm -rf .deploy_git'
+    	          sh 'sed -i "s/__GITHUB_TOKEN__/${GITHUB_TOKEN}/" _config.yml'
     	          sh 'hexo generate'
-    			  }
+    	          sh 'hexo deploy'
+    			}
     			}
 		    }
 	    }
