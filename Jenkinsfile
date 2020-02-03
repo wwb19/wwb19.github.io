@@ -9,7 +9,7 @@ pipeline {
  }
  options{
          /*disableConcurrentBuilds()*/
-         /*skipDefaultCheckout true*/
+         skipDefaultCheckout()
          timestamps()
     }
   environment { 
