@@ -5,8 +5,10 @@ pipeline {
     }
   }
   environment { 
-    def http_proxy="http://192.168.2.123:4411"
-    def https_proxy="http://192.168.2.123:4411"
+    def HTTP_PROXY="http://192.168.2.123:4411"
+    def HTTPS_PROXY="http://192.168.2.123:4411"
+    def all_proxy="socks5://192.168.2.123:4411"
+	  
     GITHUB_TOKEN=credentials('98f28b74-a03f-432e-a2a9-18cf52150e4a')
     
   }
