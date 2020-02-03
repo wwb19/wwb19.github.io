@@ -8,8 +8,8 @@ pipeline {
       githubPush()
  }*/
  options{
-         /*disableConcurrentBuilds()*/
-         skipDefaultCheckout()
+         /*disableConcurrentBuilds()
+         skipDefaultCheckout()*/
          timestamps()
     }
   environment { 
