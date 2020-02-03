@@ -15,6 +15,7 @@ pipeline {
   stages {
   stage('Init') {
 		steps{
+			scmSkip(deleteBuild: true, skipPattern:'.*\\[ci skip\\].*')
 			script{
 				println "welcome to Nick learn"
 				sh 'printenv'
