@@ -22,15 +22,15 @@ pipeline {
   }
   stages {
   stage('Init') {
-	  options {
-                skipDefaultCheckout()
-            }
-		steps{
-			script{
-				println "welcome to Nick learn"
-				sh 'printenv'
-			}
+	options {
+		skipDefaultCheckout()
+	}
+	steps{
+		script{
+			println "welcome to Nick learn"
+			sh 'printenv'
 		}
+	}
 	}
 	stage('hexo1') {
     		steps{
