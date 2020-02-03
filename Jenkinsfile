@@ -5,7 +5,9 @@ pipeline {
     }
   }
  options{
-        skipDefaultCheckout true
+         disableConcurrentBuilds()
+         skipDefaultCheckout true
+         timestamps()
     }
   environment { 
     def HTTP_PROXY="http://192.168.2.123:4411"
