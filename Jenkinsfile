@@ -9,7 +9,7 @@ pipeline {
  }*/
  options{
          disableConcurrentBuilds()
-         /*skipDefaultCheckout()*/
+         skipDefaultCheckout()
          timestamps()
     }
   environment { 
@@ -22,9 +22,6 @@ pipeline {
   }
   stages {
   stage('Init') {
-	options {
-		skipDefaultCheckout()
-	}
 	steps{
 		script{
 			println "welcome to Nick learn"
