@@ -4,9 +4,9 @@ pipeline {
       label 'Jenkins_slave_practice'
     }
   }
- triggers {
+ /*triggers {
       githubPush()
- }
+ }*/
  options{
          disableConcurrentBuilds()
          /*skipDefaultCheckout()*/
@@ -23,6 +23,7 @@ pipeline {
   stages {
   stage('Init') {
 		steps{
+			scmSkip(deleteBuild: true, skipPattern:'.*\\[ci skip\\].*')
 			script{
 				println "welcome to Nick learn"
 				sh 'printenv'
