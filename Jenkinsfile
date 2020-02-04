@@ -29,7 +29,7 @@ pipeline {
 		}
 	}
 	}
-  stage('hexo1') {
+  stage('checkout') {
 	steps{
 		script{
 		container('hexo') {
@@ -42,7 +42,7 @@ pipeline {
     	}	
     }
     
-    stage('hexo2') {
+    stage('hexo') {
 		steps{
 			script{
     			container('hexo') {
