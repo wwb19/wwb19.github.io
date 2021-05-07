@@ -79,7 +79,7 @@ theme: next
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
   type: git
-  repository: https://__GITHUB_TOKEN__@github.com/wwb19/wwb19.github.io.git
+  repository: git@github.com:wwb19/wwb19.github.io.git
   branch: master
   name: wwb19
   email: kenkywu@163.com
