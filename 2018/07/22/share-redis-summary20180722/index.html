@@ -1,0 +1,1002 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh_cn">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=6.4.1" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.4.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.4.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.4.1">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.4.1" color="#222">
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '6.4.1',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="大纲 需求 思考与方案 实现与困难 效果与总结  一、需求  需求比较简单，主要是实现多个维度的客户限额控制需求。每个限额的控制有多个的维度进行分别累计控制，还包括了单笔、日累计和月累计的方式。 需要支持多个不同接入系统，而且需要考虑未来的业务扩展性。 能够具有较强的实时性、响应性，而且能够稳定可持续运行。">
+<meta name="keywords" content="技术,redis,生产,项目">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【分享】限额控制的Redis实践">
+<meta property="og:url" content="http://wwb1984.com/2018/07/22/share-redis-summary20180722/index.html">
+<meta property="og:site_name" content="1984">
+<meta property="og:description" content="大纲 需求 思考与方案 实现与困难 效果与总结  一、需求  需求比较简单，主要是实现多个维度的客户限额控制需求。每个限额的控制有多个的维度进行分别累计控制，还包括了单笔、日累计和月累计的方式。 需要支持多个不同接入系统，而且需要考虑未来的业务扩展性。 能够具有较强的实时性、响应性，而且能够稳定可持续运行。">
+<meta property="og:locale" content="zh_cn">
+<meta property="og:image" content="http://oxigzlivh.bkt.clouddn.com/2018-07-22-15322700497055.jpg">
+<meta property="og:updated_time" content="2021-05-08T14:03:14.544Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="【分享】限额控制的Redis实践">
+<meta name="twitter:description" content="大纲 需求 思考与方案 实现与困难 效果与总结  一、需求  需求比较简单，主要是实现多个维度的客户限额控制需求。每个限额的控制有多个的维度进行分别累计控制，还包括了单笔、日累计和月累计的方式。 需要支持多个不同接入系统，而且需要考虑未来的业务扩展性。 能够具有较强的实时性、响应性，而且能够稳定可持续运行。">
+<meta name="twitter:image" content="http://oxigzlivh.bkt.clouddn.com/2018-07-22-15322700497055.jpg">
+
+
+
+
+
+
+  <link rel="canonical" href="http://wwb1984.com/2018/07/22/share-redis-summary20180722/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>【分享】限额控制的Redis实践 | 1984</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh_cn">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">1984</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">目标成为站在技术和业务十字路口的那个人。</p>
+      
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />Home</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+    <a href="/about/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-user"></i> <br />About</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+    <a href="/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />Tags</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+    <a href="/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />Categories</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />Archives</a>
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://wwb1984.com/2018/07/22/share-redis-summary20180722/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="wu.wb">
+      <meta itemprop="description" content="随心随缘随行。">
+      <meta itemprop="image" content="/img/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="1984">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">【分享】限额控制的Redis实践
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2018-07-22 23:03:03" itemprop="dateCreated datePublished" datetime="2018-07-22T23:03:03+00:00">2018-07-22</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2021-05-08 14:03:14" itemprop="dateModified" datetime="2021-05-08T14:03:14+00:00">2021-05-08</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/技术/" itemprop="url" rel="index"><span itemprop="name">技术</span></a></span>
+
+                
+                
+                  , 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/技术/分享/" itemprop="url" rel="index"><span itemprop="name">分享</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="大纲"><a href="#大纲" class="headerlink" title="大纲"></a>大纲</h1><ul>
+<li><a href="#overview">需求</a></li>
+<li><a href="#useage">思考与方案</a></li>
+<li><a href="#stage">实现与困难</a></li>
+<li><a href="#summary">效果与总结</a></li>
+</ul>
+<h1 id="一、需求"><a href="#一、需求" class="headerlink" title="一、需求"></a>一、需求</h1><p><a id="overview"></a></p>
+<ul>
+<li>需求比较简单，主要是实现多个维度的客户限额控制需求。每个限额的控制有多个的维度进行分别累计控制，还包括了单笔、日累计和月累计的方式。</li>
+<li>需要支持多个不同接入系统，而且需要考虑未来的业务扩展性。</li>
+<li>能够具有较强的实时性、响应性，而且能够稳定可持续运行。<a id="more"></a> 
+<h1 id="二、思考与方案"><a href="#二、思考与方案" class="headerlink" title="二、思考与方案"></a>二、思考与方案</h1><a id="useage"></a><br>由于考虑这次项目是在支付系统中使用，常用场景是日常的高访问的支付场景以及一些秒杀、双十一等促销场景，而且涉及具有较大规模的基础用户量。自然而然，就想到了使用内存数据库进行处理。</li>
+</ul>
+<h2 id="缓存or数据库"><a href="#缓存or数据库" class="headerlink" title="缓存or数据库"></a>缓存or数据库</h2><p>内存数据库，顾名思义就是把数据放在内存中，直接把内存当作数据库使用。缓存，是内存数据库的应用场景之一，将进程使用的数据存在内存，达到共享、快速访问、减少数据交互的作用。但缓存毕竟不是数据库，缓存是可重新加载可丢失，而数据库却必须支持持久化、高可用、一致性的。<br>在项目初期，我们基本考虑把数据存放在内存中。但随着项目的推进，压力测试、验证等各方面的工作开展，我们发现直接使用内存作为数据库在不可丢失数据的场景下，是无法满足要求的。至少，为了保持整个内存数据库的高可用、持久化，也许我们需要更多其他的工作来达到。<br>因此，我们最终定型存储结构是Redis当作数据缓存以达到高并发的读写要求，DB2作为持久化数据库，最终数据需同步到DB2为准，也跟市场主流的用法类似。</p>
+<h2 id="选用Redis"><a href="#选用Redis" class="headerlink" title="选用Redis"></a>选用Redis</h2><p>缓存方案：Redis、ehcache、kafka等很多不同的方案。考虑行里已有Redis的实施经验，而且Redis提供的数据类型更为丰富，最重要是Redis支持持久化和成熟的高可用方案，初步定型为Redis。</p>
+<h1 id="三、实现与困难"><a href="#三、实现与困难" class="headerlink" title="三、实现与困难"></a>三、实现与困难</h1><p><a id="stage"></a><br>万事起头难，从无到有的确需要经过很多不同的实践和验证。从开始以为Redis只是普通的get/set操作，常用的k-v结构存储之外，其实对于一个成熟可用的方案考虑的还不止这些。</p>
+<h2 id="数据存储"><a href="#数据存储" class="headerlink" title="数据存储"></a>数据存储</h2><ul>
+<li>数据规模</li>
+</ul>
+<p>存量客户数约5000千万左右。我们通过表格看看在这个基数下的不同额度的数据量。</p>
+<table>
+<thead>
+<tr>
+<th>额度A</th>
+<th>额度Ｂ</th>
+<th>额度C</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>基数x2</td>
+<td>基数x42</td>
+<td>基数x110</td>
+</tr>
+<tr>
+<td>1亿</td>
+<td>十多亿</td>
+<td>几百亿</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>数据结构</li>
+</ul>
+<p>在如何规模的数量下，对于数据库都需要采取各种方案来进行提高性能和访问速度，还有节省空间。更何况是存储量级只有硬盘十分之一不到的内存呢。<br>在项目初期，确定以Redis为数据存储，DB2为数据存储的方案，与大多的方案不太一样。大多的方案是Redis的数据结构与数据库的表结构一致，根据不同的key来定义或划分数据。</p>
+<p>数据库：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">LimitRecord1(</span><br><span class="line">userid,recordval1,...</span><br><span class="line">)</span><br><span class="line">LimitRecord2(</span><br><span class="line">userid,condition2,recordva2,...</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<p>方案一：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Redis：</span><br><span class="line">LimitRecord1:userid&#123;</span><br><span class="line">    recordval1:value,</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br><span class="line">LimitRecord2:userid:condition2&#123;</span><br><span class="line">    recordval2:value,</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>方案二：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Redis:</span><br><span class="line">userid:&#123;</span><br><span class="line">    LimitRecord1:recordval1</span><br><span class="line">    LimitRecord2.condition2:recordval1</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>至于那种方式更好，见仁见智，在此我们提供不同思路给大家思考。<br>对于缓存方案，多读少写第一种方案更合适。以Redis作为存储方案二相对更加节省内存使用，更适合k-v的存储数据结构。</p>
+<h2 id="Redis字段优化"><a href="#Redis字段优化" class="headerlink" title="Redis字段优化"></a>Redis字段优化</h2><p> 在日常中，缓存往往只是少量数据，如配置项、热点数据等，而本项目中，Redis承载的数据规模日常热点在几千万键的级别中，因此每一个小的字符串优化，效果都很明显也很重要。<br>优化前：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">limitkey.userid.cardtype等组合</span><br></pre></td></tr></table></figure>
+<p>优化后：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">l.u.c 等组合</span><br><span class="line">甚至有些改为1.2.3纯数字代替</span><br></pre></td></tr></table></figure>
+<p>的确我们同事说的，这可读性降低很多，不过面对寸金尺土的内存空间，这优化还是很必要。</p>
+<p>另外，在Redis内存不同的数据结构对于内存的使用大小也是天差地别。</p>
+<table>
+<thead>
+<tr>
+<th>存储结构</th>
+<th>数据量（万）</th>
+<th>数据格式</th>
+<th>内存大小</th>
+<th>rdb文件大小</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>hash</td>
+<td>15000</td>
+<td>ziplist</td>
+<td>10.77G</td>
+<td>1.6G</td>
+</tr>
+<tr>
+<td>hash</td>
+<td>15000</td>
+<td>hashtable</td>
+<td>20.62G</td>
+<td>6.9G</td>
+</tr>
+</tbody>
+</table>
+<p>当然我们也做了很多其他不同的字段优化和测试，在此边幅有限不一一详述。</p>
+<h2 id="事务处理与lua脚本"><a href="#事务处理与lua脚本" class="headerlink" title="事务处理与lua脚本"></a>事务处理与lua脚本</h2><p>由于涉及多个限额的累计或回退、多个限额值（日累计、月累计）的一致性要求，数据库可提供事务机制实现，在Redis中，又是如何实现的。<br>Redis提供了基础的事务功能，不过涉及到锁的机制，因此对于开发要求比较高。另一方面，Redis本身每次操作都是原子性的，所以也可通过lua脚本实现。我们本次项目采取的是后者。</p>
+<p>lua脚本并不复杂，但是lua脚本类似数据库的存储过程，一旦执行，若存在死循环或者大数据量操作，对于Redis来说是致命的。因此不建议常用，也不建议滥用，我们组员很多时间都觉得，lua可以做，就可以避免多次访问Redis，减少开销。不过遇到此类场景，并没有一致性要求的，建议使用hmset、hmget等批操作，或者pipeline等方式进行访问，避免使用lua此类脚本，减少风险和排查难度。</p>
+<h2 id="Redis与数据库同步"><a href="#Redis与数据库同步" class="headerlink" title="Redis与数据库同步"></a>Redis与数据库同步</h2><p>在文章开头，提到一点很重要，也是项目必须面对的，就是Redis究竟是作为数据库还是缓存，这对于数据落地、高可用等设计都会涉及。<br>目前定位是Redis缓存、DB作为数据落地，因此如何把Redis中的数据同步到数据库也是我们纠结很久的困难点。</p>
+<h3 id="同步机制"><a href="#同步机制" class="headerlink" title="同步机制"></a>同步机制</h3><p>在Redis本身是支持类似队列或订阅机制，意味着我们可以考虑使用这两个方式触发数据同步。<br>但由于Redis的队列机制是不完整的，不完整指的是Redis并不是提供一个类似MQ、rabbitMQ等专门的队列机制，因此不建议Redis的队列服务与本身Redis的存储服务一同使用，有可能会导致队列堵塞而导致存储服务无法使用。<br>因此，项目使用了公司平台本身的队列服务，Redis仍然作为缓冲服务，避免由于高并发量和突发大数据量而导致系统不可用。</p>
+<h3 id="数据结构映射"><a href="#数据结构映射" class="headerlink" title="数据结构映射"></a>数据结构映射</h3><p>如何把Redis的存储数据与数据库表结构对应，也是我们面对的问题之一。因此大多的方式是，Redis当缓存或临时的热点数据，允许在一段周期后进行丢弃，也就是说可不用回写数据库，但本项目中的数据，最长的时间是月，这个是无法丢弃的。并且如何对于这么大的数据量在Redis中进行清理，也是一个难题。</p>
+<h3 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h3><p>另一方面，本项目采取的数据结构与数据库表结构也不一致，无法直接从Redis的数据中回写数据库。<br>我们的处理方式就是不进行同步，Redis和数据库单独管理。每次通讯请求，通过开关判断，开关用于判断使用Redis或者DB。当默认使用Redis时，程序将请求同步发送至Redis限额控制服务，当Redis处理结果成功后，将请求异步发送至平台队列中，DB限额控制服务将从队列获取信息进行处理。</p>
+<p>　<img src="http://oxigzlivh.bkt.clouddn.com/2018-07-22-15322700497055.jpg" alt=""></p>
+<h1 id="四、效果与总结"><a href="#四、效果与总结" class="headerlink" title="四、效果与总结"></a>四、效果与总结</h1><p><a id="summary"></a><br>目前项目仍在开发中准备投产，效果如何仍需结合生产的运行情况，我们再进一步总结和归纳经验。本项目在Redis中的前期做了不少的实践，不过更多没落到实处，主要集中在性能和用法上的实践。但在项目开展时会遇到不少的难题需要解决，特别结合复杂的业务场景下，无法使用关系型数据库进行数据关联查询，无法使用事务机制控制提交回滚，更无法使用索引主键等控制约束，都是我们缺乏思考的地方。<br>下一步我们需要完善的是运维和监控，在追求速度的开发节奏和生产性能的当下，如何能够让快速的系统健康稳定运行，相对应的故障发现和自动化运维机制是必不可少的。期待下一次的分享。</p>
+
+      
+    </div>
+    <div>
+      
+      <div>
+
+    <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+
+</div>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+    <div>
+      
+        
+<div class="my_post_copyright">
+  <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+  
+  <!-- JS库 sweetalert 可修改路径 -->
+  <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <p><span>本文标题:</span><a href="/2018/07/22/share-redis-summary20180722/">【分享】限额控制的Redis实践</a></p>
+  <p><span>文章作者:</span><a href="/" title="访问 wu.wb 的个人博客">wu.wb</a></p>
+  <p><span>发布时间:</span>2018年07月22日 - 23:07</p>
+  <p><span>最后更新:</span>2021年05月08日 - 14:05</p>
+  <p><span>原始链接:</span><a href="/2018/07/22/share-redis-summary20180722/" title="【分享】限额控制的Redis实践">http://wwb1984.com/2018/07/22/share-redis-summary20180722/</a>
+    <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://wwb1984.com/2018/07/22/share-redis-summary20180722/"  aria-label="复制成功！"></i></span>
+  </p>
+  <p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用-禁止演绎 4.0 国际</a> 转载请保留原文链接及作者。</p>  
+</div>
+<script> 
+    var clipboard = new Clipboard('.fa-clipboard');
+      $(".fa-clipboard").click(function(){
+      clipboard.on('success', function(){
+        swal({   
+          title: "",   
+          text: '复制成功',
+          icon: "success", 
+          showConfirmButton: true
+          });
+        });
+    });  
+</script>
+
+
+      
+    </div>
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/技术/" rel="tag"><i class="fa fa-tag"></i> 技术</a>
+          
+            <a href="/tags/redis/" rel="tag"><i class="fa fa-tag"></i> redis</a>
+          
+            <a href="/tags/生产/" rel="tag"><i class="fa fa-tag"></i> 生产</a>
+          
+            <a href="/tags/项目/" rel="tag"><i class="fa fa-tag"></i> 项目</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/06/22/work-redisMeeting/" rel="next" title="【培训】公司Redis分享会">
+                <i class="fa fa-chevron-left"></i> 【培训】公司Redis分享会
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/09/06/share.redis.maintenance/" rel="prev" title="【分享】Redis日常运维">
+                【分享】Redis日常运维 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/img/avatar.jpg"
+                alt="wu.wb" />
+            
+              <p class="site-author-name" itemprop="name">wu.wb</p>
+              <p class="site-description motion-element" itemprop="description">随心随缘随行。</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">7</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">7</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">9</span>
+                    <span class="site-state-item-name">tags</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/wwb19" target="_blank" title="GitHub"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                  
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:kenkywu@163.com" target="_blank" title="E-Mail"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  
+                </span>
+              
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#大纲"><span class="nav-number">1.</span> <span class="nav-text">大纲</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#一、需求"><span class="nav-number">2.</span> <span class="nav-text">一、需求</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#二、思考与方案"><span class="nav-number">3.</span> <span class="nav-text">二、思考与方案</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#缓存or数据库"><span class="nav-number">3.1.</span> <span class="nav-text">缓存or数据库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#选用Redis"><span class="nav-number">3.2.</span> <span class="nav-text">选用Redis</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#三、实现与困难"><span class="nav-number">4.</span> <span class="nav-text">三、实现与困难</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#数据存储"><span class="nav-number">4.1.</span> <span class="nav-text">数据存储</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Redis字段优化"><span class="nav-number">4.2.</span> <span class="nav-text">Redis字段优化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#事务处理与lua脚本"><span class="nav-number">4.3.</span> <span class="nav-text">事务处理与lua脚本</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Redis与数据库同步"><span class="nav-number">4.4.</span> <span class="nav-text">Redis与数据库同步</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#同步机制"><span class="nav-number">4.4.1.</span> <span class="nav-text">同步机制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据结构映射"><span class="nav-number">4.4.2.</span> <span class="nav-text">数据结构映射</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解决方案"><span class="nav-number">4.4.3.</span> <span class="nav-text">解决方案</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#四、效果与总结"><span class="nav-number">5.</span> <span class="nav-text">四、效果与总结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">wu.wb</span>
+
+  
+
+  
+</div>
+
+
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> v3.7.1</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme – <a class="theme-link" target="_blank" href="https://theme-next.org">NexT.Gemini</a> v6.4.1</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+	
+    
+
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=6.4.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=6.4.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=6.4.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=6.4.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=6.4.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=6.4.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=6.4.1"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
